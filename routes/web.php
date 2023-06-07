@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DaftarController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.main');
+Route::get('/',[LoginController::class,'index']);
+Route::post('/',[LoginController::class,'authLogin']);
+
+Route::get('/daftar',[DaftarController::class,'index']);
+
+Route::post('/daftar',[DaftarController::class,'input']);
+
+Route::get('/dashboard', function(){
+    return view('dashboard');
 });
