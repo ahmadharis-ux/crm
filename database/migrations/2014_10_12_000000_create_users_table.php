@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('no_hp')->nullable();
+            $table->integer('point')->default(0);
+            $table->enum('enum',['admin','member'])->default('member');
+            $table->enum('status',['clasic','silver','gold'])->default('clasic');
             $table->rememberToken();
             $table->timestamps();
         });

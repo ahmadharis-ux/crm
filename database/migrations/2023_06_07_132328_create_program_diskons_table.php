@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('program_diskons', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->integer('clasic')->nullable();
+            $table->integer('silver')->nullable();
+            $table->integer('gold')->nullable();
+            $table->integer('minimal_transaksi');
+            $table->datetime('tanggal_kadaluarsa');
             $table->timestamps();
         });
     }

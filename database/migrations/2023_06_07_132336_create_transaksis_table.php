@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->unsigned();
+            $table->integer('subtotal');
+            $table->foreignId('diskon_id')->nullable();
+            $table->integer('total');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('diskon_id')->references('id')->on('program_diskons');
         });
     }
 

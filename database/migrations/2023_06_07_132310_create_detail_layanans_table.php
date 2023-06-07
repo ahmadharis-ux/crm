@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('detail_layanans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('layanan_id')->unsigned();
+            $table->string('nama');
+            $table->integer('harga_satuan');
+            $table->string('kertas')->nullable();
+            $table->string('ukuran')->nullable();
             $table->timestamps();
+
+            $table->foreign('layanan_id')->references('id')->on('layanans');
         });
     }
 
