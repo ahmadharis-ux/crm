@@ -22,9 +22,19 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($validate)) {
-            return redirect('/dashboard')->with('success', 'Login Berhasil!!');
+            return redirect('/customer/dashboard')->with('success', 'Login Berhasil!!');
         } else {
-            return redirect('/login')->with('error', 'Login Gagal!!');
+            return redirect('/')->with('error', 'Login Gagal!!');
         }
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        // Menghapus sesi pengguna
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

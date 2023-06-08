@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -15,13 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[LoginController::class,'index']);
-Route::post('/',[LoginController::class,'authLogin']);
+Route::group(['middleware' => 'guest'], function(){   
+    Route::get('/',[LoginController::class,'index']);
+        Route::post('/',[LoginController::class,'authLogin']);
+        Route::get('/daftar',[DaftarController::class,'index']);
+        
+        Route::post('/daftar',[DaftarController::class,'input']);
+});
 
-Route::get('/daftar',[DaftarController::class,'index']);
+Route::group(['middleware' => 'auth'], function(){
+    Route::post('/logout',[LoginController::class, 'logout']);
 
-Route::post('/daftar',[DaftarController::class,'input']);
-
-Route::get('/dashboard', function(){
-    return view('dashboard');
+    Route::prefix('customer')->group(function(){
+        Route::get('/dashboard',[CustomerController::class,'index']);
+    });
 });
